@@ -1,0 +1,15 @@
+version: "3.9"
+
+services:
+  redis:
+    image: redis:6.2
+    container_name: chatbot-cache-1
+    ports:
+      - "6379:6379"
+    command: ["redis-server", "--requirepass", ""]
+    volumes:
+      - chatbot_cache:/data
+    restart: unless-stopped
+
+volumes:
+  chatbot_cache:
