@@ -2,20 +2,23 @@ from langchain.tools.retriever import create_retriever_tool
 from utils import VectorStore
 
 
-def get_retriever_tool(web_name):
+def get_retriever_tool():
     """
-    Return a retriever tool that is able to search and retrieve information from a given web_name's vector store.
+        Creates and returns a retriever tool for searching and answering questions
+        using information extracted from the NoloopTech website.
 
-    Args:
-        web_name (str): The name of the website to get a retriever tool for.
+        This function initializes a retriever tool using the vector store associated
+        with the NoloopTech website. The retriever tool can be utilized to search
+        and extract knowledge from the stored data to answer relevant questions.
 
-    Returns:
-        retriever_tool (RetrieverTool): A retriever tool that is able to search and retrieve information from the given web_name's vector store.
+        Returns:
+            A retriever tool configured with the NoloopTech website vector store.
     """
+
     retriever_tool = create_retriever_tool(
-        VectorStore().get_vector_store(web_name=web_name),
-        name=f"retrieve_{web_name}_info",
-        description=f"Use this tool to search and answer questions using knowledge extracted from the website '{web_name}'."
+        VectorStore().get_vector_store(),
+        name="retrieve_nolooptech_info",
+        description="Use this tool to search and answer questions using knowledge extracted from the website NoloopTech."
     )
 
     

@@ -11,5 +11,20 @@ services:
       - chatbot_cache:/data
     restart: unless-stopped
 
+  bot:
+    build: .
+    container_name: chatbot-app
+    volumes:
+      - .:/app
+    ports:
+      - "8070:8070"  
+    depends_on:
+      - redis
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_PASSWORD=
+
 volumes:
   chatbot_cache:
+

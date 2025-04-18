@@ -4,7 +4,6 @@ from fastapi import UploadFile
 
 class ChatRequest(BaseModel):
     thread_id: str = "1"
-    name: str = "nolooptech"
     message: str = "Hello"
     
 

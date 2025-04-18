@@ -14,41 +14,44 @@ from langgraph.checkpoint.memory import MemorySaver
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.runnables import RunnablePassthrough
 from langchain_community.callbacks import get_openai_callback
+from functools import lru_cache
 
 memory=MemorySaver()
 
-def build_graph(web_name):
-
+@lru_cache(maxsize=None)
+def build_graph():
     """
-    Build a graph to generate a response to a user question.
+    Builds a state machine for generating a response to a user question by retrieving
+    relevant documents, grading their relevance, re-writing the question if the retrieved
+    documents are not relevant, and generating a response based on the final question.
 
-    The graph starts by calling an agent model to decide whether to retrieve documents
-    using the retriever tool, or simply generate a response.
+    The state machine is a graph of nodes, each representing a step in the process. The
+    nodes are:
 
-    If the agent decides to retrieve, it will retrieve documents using the retriever tool.
+    - `agent`: The node that invokes the agent model to generate a response based on the
+      current state. Given the question, it will decide to retrieve using the retriever
+      tool, or simply end.
+    - `retrieve`: The node that retrieves relevant documents using the retriever tool.
+    - `rewrite`: The node that transforms the query to produce a better question if the
+      retrieved documents are not relevant.
+    - `generate`: The node that generates a response based on the final question.
 
-    After retrieving documents, the graph will call the agent model again to assess whether
-    the documents are relevant to the user question.
+    The edges between the nodes are determined by the output of the `grade_documents`
+    function, which determines whether the retrieved documents are relevant to the
+    question. If they are, the state machine proceeds to the `generate` node. If they are
+    not, the state machine proceeds to the `rewrite` node.
 
-    If the documents are deemed relevant, the graph will generate a response using the
-    documents and the user question.
-
-    If the documents are deemed not relevant, the graph will re-write the user question
-    using a language model.
-
-    The graph will continue to loop between the agent model, retrieving documents, and
-    re-writing the question until the agent decides that the documents are relevant.
-
-    Args:
-        vector_store_path (str): Path to vector store
-        web_name (str): Name of website
+    The state machine is compiled using the `StateGraph` class and the `compile` method,
+    which returns a `Graph` object. The `Graph` object can be used to run the state machine
+    by calling its `invoke` method.
 
     Returns:
-        StateGraph: A graph representing the state machine
+        Graph: A state machine graph that can be used to generate a response to a user
+          question.
     """
-    retriever_tool=get_retriever_tool(web_name=web_name)
+    retriever_tool = get_retriever_tool()
     
-    tools=[retriever_tool, contact]
+    tools = [retriever_tool, contact]
 
     async def grade_documents(state) -> Literal["generate", "rewrite"]:
         """
@@ -60,7 +63,6 @@ def build_graph(web_name):
         Returns:
             str: A decision for whether the documents are relevant or not
         """
-
         print("---CHECK RELEVANCE---")
 
         # Data model
@@ -104,7 +106,6 @@ def build_graph(web_name):
             print(score)
             return "rewrite"
 
-
     ### Nodes
     async def agent(state):
         """
@@ -119,9 +120,7 @@ def build_graph(web_name):
         """
         print("---CALL AGENT---")
         
-        
         agent_prompt = ChatPromptTemplate.from_messages(agent_prompt_template)
-        
         
         messages = state["messages"]
         
@@ -133,11 +132,9 @@ def build_graph(web_name):
             model
         )
         
-        
         response = await agent_chain.ainvoke({"question": messages})
         # We return a list, because this will get added to the existing list
         return {"messages": [response]}
-
 
     async def rewrite(state):
         """
@@ -149,7 +146,6 @@ def build_graph(web_name):
         Returns:
             dict: The updated state with re-phrased question
         """
-
         print("---TRANSFORM QUERY---")
         messages = state["messages"]
         question = messages[0].content
@@ -164,12 +160,11 @@ def build_graph(web_name):
                     \n ------- \n
                     Formulate an improved question: """,
                 )
-    ]
+        ]
 
         # Grader
         response = await fast_llm.ainvoke(msg)
         return {"messages": [response]}
-
 
     async def generate(state):
         """
@@ -197,9 +192,6 @@ def build_graph(web_name):
         # Run
         response = await generate_chain.ainvoke({"context": docs, "question": question})
         return {"messages": [response]}
-
-
-
 
     # Define a new graph
     workflow = StateGraph(AgentState)
@@ -243,17 +235,17 @@ def build_graph(web_name):
 
 async def get_chat_response(graph, question: str, thread_id: str = "1"):
     """
-    Asynchronously generates a chat response based on the provided question using a state graph.
+    Process a chat message through the chatbot agent.
 
     Args:
-        graph (StateGraph): The graph to process the chat message and generate a response.
-        question (str): The user's question to be answered.
-        thread_id (str, optional): The identifier for the chat thread. Defaults to "1".
+        graph: The agent state machine graph.
+        question: The user's question to be processed.
+        thread_id: The ID of the conversation thread.
 
     Returns:
-        str: The final response generated by the graph, or an error message if something goes wrong.
+        str: The response from the chatbot agent.
     """
-
+    
     try:
         response= ""        
         config = {"configurable": {"thread_id": thread_id}}

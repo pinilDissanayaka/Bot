@@ -166,16 +166,16 @@ class Loader(object):
 
     async def __scrape_page(self, url: str) -> list:
         """
-        Scrape content from a given URL and its linked pages asynchronously.
+            Scrape content from a given URL and its linked pages asynchronously.
 
-        This method will scrape the content from a given URL and all linked pages
-        asynchronously. It will return a list of text content from all scraped pages.
+            This method will scrape the content from a given URL and all linked pages
+            asynchronously. It will return a list of text content from all scraped pages.
 
-        Args:
-            url (str): The URL to scrape.
+            Args:
+                url (str): The URL to scrape.
 
-        Returns:
-            list: A list of text content from all scraped pages.
+            Returns:
+                list: A list of text content from all scraped pages.
         """
         visited_urls = set()
         scraped_content = []
@@ -210,13 +210,13 @@ class Loader(object):
 
     async def web_loader(self) -> str:
         """
-        Load content from a web URL asynchronously.
+            Load content from a web URL asynchronously.
 
-        This method scrapes the content from the specified base URL if it exists and returns the
-        concatenated text content from all scraped pages.
+            This method scrapes the content from the specified base URL if it exists and returns the
+            concatenated text content from all scraped pages.
 
-        Returns:
-            str: The concatenated text content from the web pages, or an empty string if no base URL is provided.
+            Returns:
+                str: The concatenated text content from the web pages, or an empty string if no base URL is provided.
         """
         if self.base_url:
             web_contents = await self.__scrape_page(self.base_url)

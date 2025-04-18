@@ -21,18 +21,13 @@ async def startup_event():
     await FastAPILimiter.init(redis_client)
 
 
-@lru_cache(maxsize=200)
-def get_cached_graph(web_name: str):
-    """Fetches a graph from cache, or builds it if it doesn't exist
-    
-    Args:
-        web_name (str): The name of the website for which to build the graph
-    
-    Returns:
-        StateGraph: A graph representing the state machine
-    """
-    
-    return build_graph(web_name=web_name)
+@lru_cache(maxsize=None)
+def get_cached_graph():
+    """Caches the chatbot state machine graph in memory to avoid re-building it
+    on every request. The graph is built using the build_graph function in
+    agent.py. The graph is cached based on the web_name parameter, so a new
+    graph is built for each different web_name."""
+    return build_graph()
 
 
 @chat_router.post("/", response_model=ChatResponse, dependencies=[Depends(RateLimiter(times=10, seconds=60))])
@@ -41,7 +36,7 @@ async def chat(request: ChatRequest):
     Responds to a user's question using the chatbot state machine
     """
     try:
-        graph = get_cached_graph(web_name=request.name)
+        graph = get_cached_graph()
         
         return ChatResponse(
             response=await get_chat_response(graph=graph, question=request.message, thread_id=request.thread_id)
