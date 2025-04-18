@@ -15,8 +15,9 @@ class VectorStore:
 
         """
         self.BASE_VECTOR_STORE_DIR = os.path.join(os.getcwd(), "vector")
-        os.makedirs(self.BASE_VECTOR_STORE_DIR, exist_ok=True)
         self.web_name = "nolooptech"
+    
+        os.makedirs(self.BASE_VECTOR_STORE_DIR, exist_ok=True)
         
     def _get_store_path(self) -> str:
         """
