@@ -15,6 +15,12 @@ redis_pool = redis.ConnectionPool.from_url(
 )
 
 async def get_redis_client():
+    """
+    Returns a Redis client instance from a shared connection pool.
+
+    This is a singleton function that returns the same Redis client instance every time it is called.
+    """
+    
     return redis.Redis(connection_pool=redis_pool)
 
 
@@ -90,7 +96,7 @@ async def get_cached_language(question: str) -> str:
     cached_lang = await redis_client.get(key)
     if cached_lang:
         return cached_lang
-
+ 
     # If not cached, detect the language and store it in Redis
     detected_lang = await detect(question)
     await redis_client.set(key, detected_lang, ex=3600)  # Cache for 1 hour

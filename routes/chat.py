@@ -17,16 +17,21 @@ chat_router = APIRouter(
 # Initialize rate limiter
 @chat_router.on_event("startup")
 async def startup_event():
+    """Initialize the FastAPILimiter with the Redis client from the environment variable REDIS_URL.
+    This is an event handler that is called when the application starts up.
+    """
     redis_client = Redis.from_url(os.environ["REDIS_URL"])
     await FastAPILimiter.init(redis_client)
 
 
 @lru_cache(maxsize=None)
 def get_cached_graph():
-    """Caches the chatbot state machine graph in memory to avoid re-building it
-    on every request. The graph is built using the build_graph function in
-    agent.py. The graph is cached based on the web_name parameter, so a new
-    graph is built for each different web_name."""
+    """Returns the cached chatbot state machine graph.
+    
+    The graph is built using the `build_graph` function and cached using the `lru_cache` decorator.
+    This means that the graph is only built once and the same instance is returned every time this function is called.
+    """
+    
     return build_graph()
 
 
