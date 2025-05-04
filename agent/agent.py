@@ -16,7 +16,10 @@ from langchain_core.runnables import RunnablePassthrough
 from langchain_community.callbacks import get_openai_callback
 from functools import lru_cache
 
+
+
 memory=MemorySaver()
+
 
 @lru_cache(maxsize=None)
 def build_graph():
@@ -255,23 +258,18 @@ async def get_chat_response(graph, question: str, thread_id: str = "1"):
         if language != "en":
             question, language = await translate_text(text=question)
         
-        with get_openai_callback() as cb:    
-            async for chunk in graph.astream(
-                {
-                    "messages": [("user", question)],
-                },
-                config=config,
-                stream_mode="values",        
-            ):
-                if chunk["messages"]:
-                    response = chunk["messages"][-1].content
-                    if language != "en":
-                        response = await translate_text(text=response, src=language)
-        
-        print(f"Total Tokens: {cb.total_tokens}")
-        print(f"Prompt Tokens: {cb.prompt_tokens}")
-        print(f"Completion Tokens: {cb.completion_tokens}")
-        print(f"Total Cost (USD): ${cb.total_cost}")
+
+        async for chunk in graph.astream(
+            {
+                "messages": [("user", question)],
+            },
+            config=config,
+            stream_mode="values",        
+        ):
+            if chunk["messages"]:
+                response = chunk["messages"][-1].content
+                if language != "en":
+                    response = await translate_text(text=response, src=language)
         
         if response:
             final_response= response

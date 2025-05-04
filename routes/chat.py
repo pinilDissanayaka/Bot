@@ -1,3 +1,4 @@
+import os
 from fastapi import APIRouter, HTTPException, Depends
 from schema import ChatRequest, ChatResponse
 from agent import get_chat_response, build_graph
@@ -5,7 +6,6 @@ from functools import lru_cache
 from fastapi_limiter import FastAPILimiter
 from fastapi_limiter.depends import RateLimiter
 from redis.asyncio import Redis
-import os
 
 
 chat_router = APIRouter(
@@ -17,8 +17,13 @@ chat_router = APIRouter(
 # Initialize rate limiter
 @chat_router.on_event("startup")
 async def startup_event():
-    """Initialize the FastAPILimiter with the Redis client from the environment variable REDIS_URL.
-    This is an event handler that is called when the application starts up.
+    """
+    Initialize the FastAPILimiter extension during the startup event of the chat_router.
+
+    This function is called during the startup event of the chat_router, and is responsible
+    for initializing the FastAPILimiter extension. The extension is initialized by creating
+    a Redis client from the REDIS_URL environment variable, and then calling the init method
+    of the FastAPILimiter class with the Redis client as an argument.
     """
     redis_client = Redis.from_url(os.environ["REDIS_URL"])
     await FastAPILimiter.init(redis_client)
