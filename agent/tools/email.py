@@ -27,6 +27,8 @@ def contact(senders_email:str, message:str):
         # terminating the session
         s.quit()"""
         
-        print("Mail sent successfully")    
+        print(f"Sending email from {senders_email} with message: {message}")
+        # Simulate sending an email
+        return "Email sent successfully!" 
     except Exception as e:
         return e
