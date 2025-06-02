@@ -248,9 +248,3 @@ class Loader(object):
             text_content += self.clean_text
 
         return text_content.replace("\n", "")
-        
-        
-
-                
-        
-    

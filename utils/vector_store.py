@@ -1,7 +1,6 @@
 import os
 import shutil
-from .config import embeddings, llm
-from langchain_experimental.text_splitter import SemanticChunker
+from .config import embeddings
 from langchain_chroma import Chroma
 
 
