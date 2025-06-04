@@ -4,21 +4,21 @@ from utils import VectorStore
 
 def get_retriever_tool():
     """
-        Creates and returns a retriever tool for searching and answering questions
-        using information extracted from the NoloopTech website.
+        Initializes and returns a retriever tool for answering visitor questions 
+        using structured knowledge extracted from the official NoloopTech website.
 
-        This function initializes a retriever tool using the vector store associated
-        with the NoloopTech website. The retriever tool can be utilized to search
-        and extract knowledge from the stored data to answer relevant questions.
+        This tool enables the AI assistant to search NoloopTech’s services, products, 
+        and company information stored in a vector database, and respond accurately 
+        to user inquiries during live chat or support sessions.
 
         Returns:
-            A retriever tool configured with the NoloopTech website vector store.
+            A configured retriever tool linked to NoloopTech’s vector store.
     """
 
     retriever_tool = create_retriever_tool(
         VectorStore().get_vector_store(),
-        name="retrieve_nolooptech_info",
-        description="Use this tool to search and answer questions using knowledge extracted from the website NoloopTech."
+        name="nolooptech_website_knowledge_search",
+        description="Search NoloopTech's services, pricing, processes, or product details from structured website data."
     )
 
     
