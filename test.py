@@ -1,16 +1,40 @@
+import os
 import smtplib
+from langchain_core.tools import tool
+from dotenv import load_dotenv, find_dotenv
 
-sender = "hello@demomailtrap.co"
-receiver = "pinildissanayaka@gmail.com"
+load_dotenv(find_dotenv())
 
-message = f"""\
-Subject: Hi Mailtrap
-To: {receiver}
-From: {sender}
 
-This is a test e-mail message."""
+def contact(senders_email:str, message:str):
+    """
+    Send an email from a given sender with a given message.
+    
+    Parameters:
+    senders_email (str): The email address of the sender.
+    message (str): The message to be sent.
+    
+    Returns:
+    str: A success message if the email is sent, otherwise the exception message.
+    """
+    
+    try:
+        message = f"""\
+            Subject: Contact from {senders_email}
+            From: {senders_email}
+            {message}
+        """
+            
 
-with smtplib.SMTP("live.smtp.mailtrap.io", 587) as server:
-    server.starttls()
-    server.login("api", "b842505a32acf6d591ad88168a32acc1")
-    server.sendmail(sender, receiver, message)
+        with smtplib.SMTP(os.getenv("HOST"), 587) as server:
+            server.starttls()
+            server.login("api", os.getenv("EMAIL_API_KEY"))
+            server.sendmail(senders_email, os.getenv("RECEIVERS_EMAIL"), message)
+
+        return "Email sent successfully!"
+    
+    except Exception as e:
+        return e
+    
+    
+contact("")

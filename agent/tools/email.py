@@ -27,10 +27,10 @@ def contact(senders_email:str, message:str):
         """
             
 
-        with smtplib.SMTP(os.getenv("SENDERS_EMAIL"), 587) as server:
+        with smtplib.SMTP(os.getenv("HOST"), 587) as server:
             server.starttls()
             server.login("api", os.getenv("EMAIL_API_KEY"))
-            server.sendmail(senders_email, os.getenv("RECEIVERS_EMAIL"), message)
+            server.sendmail(os.getenv("HOST"), senders_email, message)
 
         return "Email sent successfully!"
     
