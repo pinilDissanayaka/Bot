@@ -77,5 +77,3 @@ generate_prompt_template = [
     ),
     ("human", "Visitor: {question}\nContext: {context}")
 ]
-
-]
