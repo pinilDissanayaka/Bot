@@ -1,5 +1,10 @@
+import os
 import smtplib
 from langchain_core.tools import tool
+from dotenv import load_dotenv, find_dotenv
+
+load_dotenv(find_dotenv())
+
 
 @tool
 def contact(senders_email:str, message:str):
@@ -15,8 +20,21 @@ def contact(senders_email:str, message:str):
     """
     
     try:
-        print(f"Sending email from {senders_email} with message: {message}")
-        # Simulate sending an email
-        return "Email sent successfully!" 
+        message = f"""\
+            Subject: Contact from {senders_email}
+            From: {senders_email}
+            {message}
+        """
+            
+
+        with smtplib.SMTP(os.getenv("SENDERS_EMAIL"), 587) as server:
+            server.starttls()
+            server.login("api", os.getenv("EMAIL_API_KEY"))
+            server.sendmail(senders_email, os.getenv("RECEIVERS_EMAIL"), message)
+
+        return "Email sent successfully!"
+    
     except Exception as e:
         return e
+    
+    
