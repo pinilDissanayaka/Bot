@@ -11,6 +11,22 @@ load_dotenv(find_dotenv())
 
 @tool
 def contact(senders_email: str, message_body: str):
+    """
+        Sends a contact email using SMTP with credentials and email addresses from environment variables.
+
+        This function sends an email containing the given message from the specified sender's email
+        to a predefined recipient. 
+
+        Args:
+            senders_email (str): The email address of the user initiating the contact.
+            message_body (str): The body of the message to be sent.
+
+        Returns:
+            str: A success message if the email was sent successfully, or an error message if an exception occurred.
+
+        Raises:
+            ValueError: If required environment variables (SENDER or RECEIVER) are missing.
+    """
     try:
         smtp_host = os.getenv("HOST")
         smtp_port = 587
