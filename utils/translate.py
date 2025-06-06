@@ -68,14 +68,13 @@ async def translate_text(text: str, src: str = None):
         tuple: The translated text and the target language if src is None.
     """
     if src:
-        result = translator.translate(text, dest=src)  
+        result = await translator.translate(text, dest=src)  
         return result.text
     else:
-        result = translator.translate(text)  
+        result = await translator.translate(text)  
         return result.text, result.src
         
         
-
 
 async def get_cached_language(question: str) -> str:
     """
