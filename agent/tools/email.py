@@ -1,40 +1,41 @@
 import os
 import smtplib
+from email.utils import formataddr
+from email.mime.text import MIMEText
 from langchain_core.tools import tool
 from dotenv import load_dotenv, find_dotenv
+
 
 load_dotenv(find_dotenv())
 
 
 @tool
-def contact(senders_email:str, message:str):
-    """
-    Send an email from a given sender with a given message.
-    
-    Parameters:
-    senders_email (str): The email address of the sender.
-    message (str): The message to be sent.
-    
-    Returns:
-    str: A success message if the email is sent, otherwise the exception message.
-    """
-    
+def contact(senders_email: str, message_body: str):
     try:
-        message = f"""\
-            Subject: Contact from {senders_email}
-            From: {senders_email}
-            {message}
-        """
-            
+        smtp_host = os.getenv("HOST")
+        smtp_port = 587
+        smtp_user = "api"
+        smtp_pass = os.getenv("EMAIL_API_KEY")
+        sender_email = os.getenv("SENDER")
+        receiver_email = os.getenv("RECEIVER")
 
-        with smtplib.SMTP(os.getenv("HOST"), 587) as server:
+        if not sender_email or not receiver_email:
+            raise ValueError("Missing SENDER or RECEIVER in environment variables")
+
+        msg = MIMEText(f"Message from: {senders_email}\n\n{message_body}")
+        msg["Subject"] = f"Contact from {senders_email}"
+        msg["From"] = formataddr(("Private Person", sender_email))
+        msg["To"] = formataddr(("A Test User", receiver_email))
+
+        # Send email
+        with smtplib.SMTP(smtp_host, smtp_port) as server:
             server.starttls()
-            server.login("api", os.getenv("EMAIL_API_KEY"))
-            server.sendmail(os.getenv("HOST"), senders_email, message)
+            server.login(smtp_user, smtp_pass)
+            server.send_message(msg)
 
-        return "Email sent successfully!"
-    
+        return "Email sent successfully!, our team will get back to you soon."
+
     except Exception as e:
-        return e
+        return str(e)
     
     
