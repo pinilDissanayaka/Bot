@@ -49,6 +49,7 @@ async def chat(request: ChatRequest):
         graph = get_cached_graph()
         
         return ChatResponse(
+            thread_id=request.thread_id,
             response=await get_chat_response(graph=graph, question=request.message, thread_id=request.thread_id)
         )
 
