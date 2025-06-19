@@ -274,7 +274,7 @@ async def get_chat_response(graph, question: str, thread_id: str = "1"):
 
         async for chunk in graph.astream(
             {
-                "messages": [("user", question)],
+                "messages": [HumanMessage(content=question)],
             },
             config=config,
             stream_mode="values",        
