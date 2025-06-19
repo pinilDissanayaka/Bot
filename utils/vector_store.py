@@ -5,7 +5,7 @@ from langchain_chroma import Chroma
 
 
 class VectorStore:
-    def __init__(self) -> None:
+    def __init__(self, web_name:str="nolooptech") -> None:
         """
         Initialize a VectorStore object.
 
@@ -14,7 +14,7 @@ class VectorStore:
 
         """
         self.BASE_VECTOR_STORE_DIR = os.path.join(os.getcwd(), "vector")
-        self.web_name = "nolooptech"
+        self.web_name = web_name
     
         os.makedirs(self.BASE_VECTOR_STORE_DIR, exist_ok=True)
         

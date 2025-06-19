@@ -6,6 +6,7 @@ from functools import lru_cache
 from fastapi_limiter import FastAPILimiter
 from fastapi_limiter.depends import RateLimiter
 from redis.asyncio import Redis
+from database.crud import get
 
 
 chat_router = APIRouter(
@@ -30,14 +31,25 @@ async def startup_event():
 
 
 @lru_cache(maxsize=None)
-def get_cached_graph():
+def get_cached_graph(web_name:str):
     """Returns the cached chatbot state machine graph.
     
     The graph is built using the `build_graph` function and cached using the `lru_cache` decorator.
     This means that the graph is only built once and the same instance is returned every time this function is called.
     """
+    data= get(web_name=web_name)
     
-    return build_graph()
+    agent_prompt = data.agent_prompt
+    generate_prompt = data.generate_prompt
+    web_name=data.web_name
+    
+    print(f"Building graph for web_name: {web_name}")
+    if not agent_prompt or not generate_prompt:
+        raise HTTPException(status_code=400, detail="Agent prompt or generate prompt is missing in the database.")
+
+    return build_graph(agent_system_prompt=agent_prompt,
+                       generate_system_prompt=generate_prompt,
+                       web_name=web_name)
 
 
 @chat_router.post("/", response_model=ChatResponse, dependencies=[Depends(RateLimiter(times=10, seconds=60))])
@@ -46,7 +58,7 @@ async def chat(request: ChatRequest):
     Responds to a user's question using the chatbot state machine
     """
     try:
-        graph = get_cached_graph()
+        graph = get_cached_graph(web_name=request.web_name)
         
         return ChatResponse(
             thread_id=request.thread_id,

@@ -8,8 +8,7 @@ from langgraph.graph import END, StateGraph, START
 from langgraph.prebuilt import ToolNode
 from agent.tools.retriever_tool import get_retriever_tool
 from agent.tools.email import contact
-from agent.tools.ticketing import issue_ticket
-from utils import AgentState, llm, fast_llm, agent_prompt_template, generate_prompt_template, translate_text, detect
+from utils import AgentState, llm, fast_llm, translate_text, detect
 from langgraph.checkpoint.memory import MemorySaver
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.runnables import RunnablePassthrough
@@ -22,7 +21,7 @@ memory=MemorySaver()
 
 
 @lru_cache(maxsize=None)
-def build_graph():
+def build_graph(agent_system_prompt:str, generate_system_prompt:str, web_name:str):
     """
     Builds a state machine for generating a response to a user question by retrieving
     relevant documents, grading their relevance, re-writing the question if the retrieved
@@ -52,9 +51,23 @@ def build_graph():
         Graph: A state machine graph that can be used to generate a response to a user
           question.
     """
-    retriever_tool = get_retriever_tool()
+    retriever_tool = get_retriever_tool(web_name=web_name)
     
     tools = [retriever_tool, contact]
+    
+    agent_prompt_template = [
+        ("system",
+            agent_system_prompt
+        ),
+        ("human", "Visitor: {QUESTION}")
+    ]
+    
+    generate_prompt_template = [
+        ("system", 
+            generate_system_prompt
+        ),
+        ("human", "Visitor: {question}\nContext: {context}")
+    ]
 
     async def grade_documents(state) -> Literal["generate", "rewrite"]:
         """
