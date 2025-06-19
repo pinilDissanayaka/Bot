@@ -42,9 +42,9 @@ def get_cached_graph(web_name:str):
     if not data:
         raise HTTPException(status_code=404, detail=f"Web name '{web_name}' not found in the database.")
     
-    agent_prompt = data.agent_prompt
-    generate_prompt = data.generate_prompt
-    web_name=data.web_name
+    agent_prompt = str(data.agent_prompt)
+    generate_prompt = str(data.generate_prompt)
+    web_name=str(data.web_name)
     
     print(f"Building graph for web_name: {web_name}")
 

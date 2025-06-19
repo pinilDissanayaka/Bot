@@ -14,7 +14,7 @@ def get(web_name: str):
     """
     db = SessionLocal()
     try:
-        prompt = db.query(ChatbotPrompt).filter(ChatbotPrompt.web_name == web_name).first()
-        return prompt
+        data = db.query(ChatbotPrompt).filter(ChatbotPrompt.web_name == web_name).first()
+        return data
     finally:
-        db.close()  # Ensure the session is closed after use
+        db.close()  
