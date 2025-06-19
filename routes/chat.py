@@ -30,7 +30,6 @@ async def startup_event():
     await FastAPILimiter.init(redis_client)
 
 
-@lru_cache(maxsize=None)
 def get_cached_graph(web_name:str):
     """Returns the cached chatbot state machine graph.
     

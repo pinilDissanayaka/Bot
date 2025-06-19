@@ -20,7 +20,6 @@ from functools import lru_cache
 memory=MemorySaver()
 
 
-@lru_cache(maxsize=None)
 def build_graph(agent_system_prompt:str, generate_system_prompt:str, web_name:str):
     """
     Builds a state machine for generating a response to a user question by retrieving
