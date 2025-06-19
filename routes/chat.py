@@ -39,13 +39,15 @@ def get_cached_graph(web_name:str):
     """
     data= get(web_name=web_name)
     
+    if not data:
+        raise HTTPException(status_code=404, detail=f"Web name '{web_name}' not found in the database.")
+    
     agent_prompt = data.agent_prompt
     generate_prompt = data.generate_prompt
     web_name=data.web_name
     
     print(f"Building graph for web_name: {web_name}")
-    if not agent_prompt or not generate_prompt:
-        raise HTTPException(status_code=400, detail="Agent prompt or generate prompt is missing in the database.")
+
 
     return build_graph(agent_system_prompt=agent_prompt,
                        generate_system_prompt=generate_prompt,
