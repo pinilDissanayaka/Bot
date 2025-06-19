@@ -30,6 +30,7 @@ async def startup_event():
     await FastAPILimiter.init(redis_client)
 
 
+@lru_cache(maxsize=None)
 def get_cached_graph(web_name:str):
     """Returns the cached chatbot state machine graph.
     
@@ -48,9 +49,12 @@ def get_cached_graph(web_name:str):
     print(f"Building graph for web_name: {web_name}")
 
 
-    return build_graph(agent_system_prompt=agent_prompt,
+    graph=build_graph(agent_system_prompt=agent_prompt,
                        generate_system_prompt=generate_prompt,
                        web_name=web_name)
+    
+    
+    return graph
 
 
 @chat_router.post("/", response_model=ChatResponse, dependencies=[Depends(RateLimiter(times=10, seconds=60))])

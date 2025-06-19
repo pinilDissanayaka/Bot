@@ -20,6 +20,7 @@ from functools import lru_cache
 memory=MemorySaver()
 
 
+@lru_cache(maxsize=None)
 def build_graph(agent_system_prompt:str, generate_system_prompt:str, web_name:str):
     """
     Builds a state machine for generating a response to a user question by retrieving
@@ -67,6 +68,8 @@ def build_graph(agent_system_prompt:str, generate_system_prompt:str, web_name:st
         ),
         ("human", "Visitor: {question}\nContext: {context}")
     ]
+    
+    print(f"Building graph for web_name: {web_name}")
 
     async def grade_documents(state) -> Literal["generate", "rewrite"]:
         """
