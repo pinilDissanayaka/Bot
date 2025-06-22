@@ -26,6 +26,8 @@ jobs:
         script: |
           cd /home/noopyuser/Noopy-Bot
 
+          git stash
+
           echo "📥 Pulling latest code..."
           git pull origin main
 
