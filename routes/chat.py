@@ -39,7 +39,7 @@ def get_cached_graph(web_name:str, db:Session):
     The graph is built using the `build_graph` function and cached using the `lru_cache` decorator.
     This means that the graph is only built once and the same instance is returned every time this function is called.
     """
-    data= get(web_name=web_name)
+    data= get(web_name=web_name, db=db)
     
     if not data:
         raise HTTPException(status_code=404, detail=f"Web name '{web_name}' not found in the database.")
