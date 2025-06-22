@@ -6,6 +6,8 @@ from functools import lru_cache
 from fastapi_limiter import FastAPILimiter
 from fastapi_limiter.depends import RateLimiter
 from redis.asyncio import Redis
+from sqlalchemy.orm import Session
+from database import get_db
 from database.crud import get
 
 
@@ -31,7 +33,7 @@ async def startup_event():
 
 
 @lru_cache(maxsize=None)
-def get_cached_graph(web_name:str):
+def get_cached_graph(web_name:str, db:Session):
     """Returns the cached chatbot state machine graph.
     
     The graph is built using the `build_graph` function and cached using the `lru_cache` decorator.
@@ -56,12 +58,12 @@ def get_cached_graph(web_name:str):
 
 
 @chat_router.post("/", response_model=ChatResponse, dependencies=[Depends(RateLimiter(times=10, seconds=60))])
-async def chat(request: ChatRequest):
+async def chat(request: ChatRequest, db:Session=Depends(get_db)):
     """
     Responds to a user's question using the chatbot state machine
     """
     try:
-        graph = get_cached_graph(web_name=request.web_name)
+        graph = get_cached_graph(web_name=request.web_name, db=db)
         
         return ChatResponse(
             thread_id=request.thread_id,
