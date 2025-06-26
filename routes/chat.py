@@ -9,6 +9,7 @@ from redis.asyncio import Redis
 from sqlalchemy.orm import Session
 from database import get_db
 from database.crud import get
+from utils import logger
 
 
 chat_router = APIRouter(
@@ -28,6 +29,7 @@ async def startup_event():
     a Redis client from the REDIS_URL environment variable, and then calling the init method
     of the FastAPILimiter class with the Redis client as an argument.
     """
+    logger.info("Chat router startup event triggered.")
     redis_client = Redis.from_url(os.environ["REDIS_URL"])
     await FastAPILimiter.init(redis_client)
 
