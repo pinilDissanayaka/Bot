@@ -1,4 +1,5 @@
 import os
+import re
 from fastapi import APIRouter, HTTPException, Depends
 from schema import ChatRequest, ChatResponse
 from agent import get_chat_response, build_graph
@@ -69,9 +70,8 @@ async def chat(request: ChatRequest, db:Session=Depends(get_db)):
         
         response=await get_chat_response(graph=graph, question=request.message, thread_id=request.thread_id)
         
-        # Replace periods with newlines for better formatting
-        formatted_response = response.replace(".", "\n")
-        
+        formatted_response = re.sub(r'\.\s+', '.\n', response)
+
         return ChatResponse(
             thread_id=request.thread_id,
             response=formatted_response
