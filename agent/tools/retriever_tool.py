@@ -3,7 +3,7 @@ from utils import VectorStore
 from functools import lru_cache
 
 
-
+@lru_cache(maxsize=None)
 def get_cached_retriever_tool(web_name:str):
     """
         Returns a cached retriever tool for the given web_name.
