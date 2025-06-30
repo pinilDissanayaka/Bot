@@ -67,9 +67,14 @@ async def chat(request: ChatRequest, db:Session=Depends(get_db)):
     try:
         graph = get_cached_graph(web_name=request.web_name, db=db)
         
+        response=await get_chat_response(graph=graph, question=request.message, thread_id=request.thread_id)
+        
+        # Replace periods with newlines for better formatting
+        formatted_response = response.replace(".", "\n")
+        
         return ChatResponse(
             thread_id=request.thread_id,
-            response=await get_chat_response(graph=graph, question=request.message, thread_id=request.thread_id)
+            response=formatted_response
         )
 
     except Exception as e:
