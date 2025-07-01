@@ -11,4 +11,4 @@ logging.basicConfig(
     ]
 )
 
-logger = logging.getLogger('NoLoopTech')
+logger = logging.getLogger('Noopy')
