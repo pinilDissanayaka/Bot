@@ -70,7 +70,7 @@ async def chat(request: ChatRequest, db:Session=Depends(get_db)):
         
         response=await get_chat_response(graph=graph, question=request.message, thread_id=request.thread_id)
         
-        formatted_response = re.sub(r'\.\s+', '.\n', response)
+        formatted_response = re.sub(r'\.\s+', '.<br>', response)
 
         return ChatResponse(
             thread_id=request.thread_id,
