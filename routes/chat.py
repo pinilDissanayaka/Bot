@@ -63,14 +63,35 @@ def get_cached_graph(web_name:str, db:Session):
 @chat_router.post("/", response_model=ChatResponse, dependencies=[Depends(RateLimiter(times=10, seconds=60))])
 async def chat(request: ChatRequest, db:Session=Depends(get_db)):
     """
-    Responds to a user's question using the chatbot state machine
+    Handles incoming chat messages.
+
+    This endpoint is rate-limited to 10 requests per 60 seconds.
+
+    Parameters
+    ----------
+    request : ChatRequest
+        The incoming chat message
+    db : Session
+        The database session
+
+    Returns
+    -------
+    ChatResponse
+        The response to the chat message
+
+    Raises
+    ------
+    HTTPException
+        If the request is invalid or if there is an error processing the request
     """
     try:
         graph = get_cached_graph(web_name=request.web_name, db=db)
         
         response=await get_chat_response(graph=graph, question=request.message, thread_id=request.thread_id)
         
+        
         formatted_response = re.sub(r'\.\s+', '.<br>', response)
+
 
         return ChatResponse(
             thread_id=request.thread_id,
