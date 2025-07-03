@@ -9,7 +9,7 @@ load_dotenv(find_dotenv())
 
 Base = declarative_base()
 
-engine = create_engine(os.getenv("DATABASE_URL"), echo=True, future=True)
+engine = create_engine(os.getenv("DATABASE_URL"), echo=True, future=True, pool_pre_ping=True)
 
 SessionLocal = sessionmaker(bind=engine, autocommit=False, autoflush=False)
 
