@@ -15,6 +15,16 @@ SessionLocal = sessionmaker(bind=engine, autocommit=False, autoflush=False)
 
 
 def get_db() -> Generator[Session, None, None]:
+    """
+    A generator that yields a database session object.
+
+    The database session is opened when the generator is called and
+    closed when the generator is exited. This function is meant to
+    be used as a FastAPI dependency.
+
+    Yields:
+        Session: A database session object.
+    """
     db = SessionLocal()
     try:
         yield db
