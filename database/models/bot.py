@@ -5,6 +5,7 @@ from sqlalchemy import Column, Integer, String, Text, DateTime, func
 class ChatbotPrompt(Base):
     __tablename__ = "chatbot"
 
+
     id = Column(Integer, primary_key=True, autoincrement=True)
     web_name = Column(String(255), nullable=False, index=True)
     vector_store_path = Column(Text, nullable=False)
