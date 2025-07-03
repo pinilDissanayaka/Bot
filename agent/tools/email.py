@@ -1,4 +1,5 @@
 import os
+import psycopg2
 import smtplib
 from email.utils import formataddr
 from email.mime.text import MIMEText
@@ -10,23 +11,7 @@ load_dotenv(find_dotenv())
 
 
 @tool
-def contact(senders_email: str, message_body: str):
-    """
-        Sends a contact email using SMTP with credentials and email addresses from environment variables.
-
-        This function sends an email containing the given message from the specified sender's email
-        to a predefined recipient. 
-
-        Args:
-            senders_email (str): The email address of the user initiating the contact.
-            message_body (str): The body of the message to be sent.
-
-        Returns:
-            str: A success message if the email was sent successfully, or an error message if an exception occurred.
-
-        Raises:
-            ValueError: If required environment variables (SENDER or RECEIVER) are missing.
-    """
+def contact(name: str, senders_email: str, phone_number: str, message_body: str) -> str:
     try:
         smtp_host = os.getenv("HOST")
         smtp_port = 587
@@ -42,7 +27,17 @@ def contact(senders_email: str, message_body: str):
         msg["Subject"] = f"Contact from {senders_email}"
         msg["From"] = formataddr(("Private Person", sender_email))
         msg["To"] = formataddr(("A Test User", receiver_email))
-
+        
+        conn= psycopg2.connect(os.getenv("DATABASE_URL"))
+        cursor = conn.cursor()
+        # Insert contact details into the database
+        cursor.execute(
+            "INSERT INTO lead (name, email, phone, message) VALUES (%s, %s, %s, %s)",
+            (name, senders_email, phone_number, message_body)
+        )
+        conn.commit()
+        cursor.close()
+        conn.close()
         # Send email
         with smtplib.SMTP(smtp_host, smtp_port) as server:
             server.starttls()

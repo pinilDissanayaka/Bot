@@ -1,0 +1,13 @@
+from database import Base
+from sqlalchemy import Column, Integer, String, Text, DateTime, func
+
+
+class Lead(Base):
+    __tablename__ = "lead"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    name = Column(String(255), nullable=False, index=True)
+    email = Column(Text, nullable=False)
+    phone = Column(Text, nullable=False)
+    message = Column(Text, nullable=False)
+    created_at = Column(DateTime(timezone=True), server_default=func.now(), nullable=False)
