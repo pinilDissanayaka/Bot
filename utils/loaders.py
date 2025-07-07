@@ -178,6 +178,7 @@ class Loader(object):
                 list: A list of text content from all scraped pages.
         """
         visited_urls = set()
+        
         scraped_content = []
 
         async def __recursive_scrape(session, url):

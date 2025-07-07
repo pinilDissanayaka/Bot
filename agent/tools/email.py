@@ -57,5 +57,3 @@ def contact(name: str, senders_email: str, phone_number: str, message_body: str)
 
     except Exception as e:
         return str(e)
-    
-    
