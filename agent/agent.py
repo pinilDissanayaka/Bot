@@ -7,7 +7,7 @@ from langgraph.prebuilt import tools_condition
 from langgraph.graph import END, StateGraph, START
 from langgraph.prebuilt import ToolNode
 from agent.tools.retriever_tool import get_retriever_tool
-from agent.tools.email import contact
+from agent.tools.contact import contact
 from utils import AgentState, llm, fast_llm, translate_text, detect
 from langgraph.checkpoint.memory import MemorySaver
 from langchain_core.prompts import ChatPromptTemplate
