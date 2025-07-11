@@ -5,13 +5,15 @@ from email.utils import formataddr
 from email.mime.text import MIMEText
 from langchain_core.tools import tool
 from dotenv import load_dotenv, find_dotenv
+from database import get_db
+from database.models import Lead
 
 
 load_dotenv(find_dotenv())
 
 
 @tool
-def contact(name: str, senders_email: str, phone_number: str, message_body: str) -> str:
+def contact(thread_id:str, name: str, senders_email: str, phone_number: str, message_body: str) -> str:
     """
     A tool that sends an email and saves the contact details to the database.
 
@@ -22,18 +24,14 @@ def contact(name: str, senders_email: str, phone_number: str, message_body: str)
     Returns a string with a success message or an error message if there was an exception.
     """
     try:
-        conn= psycopg2.connect(os.getenv("DATABASE_URL"))
-        cursor = conn.cursor()
+        session = get_db()
         # Insert contact details into the database
-        cursor.execute(
-            "INSERT INTO lead (name, email, phone, message) VALUES (%s, %s, %s, %s)",
-            (name, senders_email, phone_number, message_body)
-        )
-        conn.commit()
-        cursor.close()
-        conn.close()
+        lead = Lead(thread_id=thread_id, name=name, email=senders_email, phone=phone_number, message=message_body)
+        
+        session.add(lead)
+        session.commit()
 
-        return "Email sent successfully!, our team will get back to you soon."
+        return "Thank you, our team will get back to you soon."
 
     except Exception as e:
         return str(e)

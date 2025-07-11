@@ -6,6 +6,7 @@ class Lead(Base):
     __tablename__ = "lead"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
+    thread_id = Column(String(255), nullable=False, index=True)
     name = Column(String(255), nullable=False, index=True)
     email = Column(Text, nullable=False)
     phone = Column(Text, nullable=False)
