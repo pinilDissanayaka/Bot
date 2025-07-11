@@ -252,7 +252,7 @@ def build_graph(agent_system_prompt:str, generate_system_prompt:str, web_name:st
     
     return graph
 
-async def get_chat_response(graph, question: str, thread_id: str = "1"):
+async def get_chat_response(graph, question: str, thread_id: str = "1", translate: bool = True):
     """
     Process a chat message through the chatbot agent.
 
@@ -269,31 +269,44 @@ async def get_chat_response(graph, question: str, thread_id: str = "1"):
         response= ""        
         config = {"configurable": {"thread_id": thread_id}}
         
-        language= await detect(question)
-        
-        if language != "en":
-            question, language = await translate_text(text=question)
-        
-
-        async for chunk in graph.astream(
-            {
-                "messages": [HumanMessage(content=question)],
-            },
-            config=config,
-            stream_mode="values",        
-        ):
-            if chunk["messages"]:
-                response = chunk["messages"][-1].content
-                if language != "en":
-                    response = await translate_text(text=response, src=language)
-        
-        if response:
-            final_response= response
-        else:
+        if translate:
+            language= await detect(question)
+            
             if language != "en":
-                final_response = await translate_text(text="Please Try again later", src=language)
+                question, language = await translate_text(text=question)
+            
+
+            async for chunk in graph.astream(
+                {
+                    "messages": [HumanMessage(content=question)],
+                },
+                config=config,
+                stream_mode="values",        
+            ):
+                if chunk["messages"]:
+                    response = chunk["messages"][-1].content
+                    if language != "en":
+                        response = await translate_text(text=response, src=language)
+            
+            if response:
+                final_response= response
             else:
-                final_response = "Please Try again later"        
+                if language != "en":
+                    final_response = await translate_text(text="Please Try again later", src=language)
+                else:
+                    final_response = "Please Try again later"  
+        else:
+            async for chunk in graph.astream(
+                {
+                    "messages": [HumanMessage(content=question)],
+                },
+                config=config,
+                stream_mode="values",
+            ):
+                if chunk["messages"]:
+                    response = chunk["messages"][-1].content
+            
+            final_response = response if response else "Please Try again later"      
         return final_response
     
     except Exception as e:

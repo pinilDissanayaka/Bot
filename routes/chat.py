@@ -87,7 +87,7 @@ async def chat(request: ChatRequest, db:Session=Depends(get_db)):
     try:
         graph = get_cached_graph(web_name=request.web_name, db=db)
         
-        response=await get_chat_response(graph=graph, question=request.message, thread_id=request.thread_id)
+        response=await get_chat_response(graph=graph, question=request.message, thread_id=request.thread_id, translate=False)
         
         
         formatted_response = re.sub(r'\.\s+', '.<br>', response, count =1)  # Replace the first period followed by a space with a period and a line break
