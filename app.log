@@ -1,0 +1,147 @@
+2025-07-11 13:04:04,224 [INFO] Noopy: Chat router startup event triggered.
+2025-07-11 13:04:30,125 [INFO] Noopy: Chat router startup event triggered.
+2025-07-11 13:04:32,593 [INFO] sqlalchemy.engine.Engine: select pg_catalog.version()
+2025-07-11 13:04:32,594 [INFO] sqlalchemy.engine.Engine: [raw sql] {}
+2025-07-11 13:04:33,214 [INFO] sqlalchemy.engine.Engine: select current_schema()
+2025-07-11 13:04:33,214 [INFO] sqlalchemy.engine.Engine: [raw sql] {}
+2025-07-11 13:04:33,720 [INFO] sqlalchemy.engine.Engine: show standard_conforming_strings
+2025-07-11 13:04:33,721 [INFO] sqlalchemy.engine.Engine: [raw sql] {}
+2025-07-11 13:04:34,226 [INFO] sqlalchemy.engine.Engine: BEGIN (implicit)
+2025-07-11 13:04:34,235 [INFO] sqlalchemy.engine.Engine: SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s, %(param_2)s, %(param_3)s, %(param_4)s, %(param_5)s]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s
+2025-07-11 13:04:34,236 [INFO] sqlalchemy.engine.Engine: [generated in 0.00145s] {'table_name': 'chatbot', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2025-07-11 13:04:34,748 [INFO] sqlalchemy.engine.Engine: COMMIT
+2025-07-11 13:04:35,000 [INFO] Noopy: Chat router startup event triggered.
+2025-07-11 13:05:22,590 [INFO] Noopy: Chat router startup event triggered.
+2025-07-11 13:05:22,611 [INFO] Noopy: Vector Store router startup event triggered.
+2025-07-11 13:05:24,904 [INFO] sqlalchemy.engine.Engine: select pg_catalog.version()
+2025-07-11 13:05:24,905 [INFO] sqlalchemy.engine.Engine: [raw sql] {}
+2025-07-11 13:05:25,470 [INFO] sqlalchemy.engine.Engine: select current_schema()
+2025-07-11 13:05:25,470 [INFO] sqlalchemy.engine.Engine: [raw sql] {}
+2025-07-11 13:05:25,976 [INFO] sqlalchemy.engine.Engine: show standard_conforming_strings
+2025-07-11 13:05:25,977 [INFO] sqlalchemy.engine.Engine: [raw sql] {}
+2025-07-11 13:05:26,482 [INFO] sqlalchemy.engine.Engine: BEGIN (implicit)
+2025-07-11 13:05:26,497 [INFO] sqlalchemy.engine.Engine: SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s, %(param_2)s, %(param_3)s, %(param_4)s, %(param_5)s]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s
+2025-07-11 13:05:26,498 [INFO] sqlalchemy.engine.Engine: [generated in 0.00149s] {'table_name': 'chatbot', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2025-07-11 13:05:27,002 [INFO] sqlalchemy.engine.Engine: COMMIT
+2025-07-11 13:05:27,254 [INFO] Noopy: Chat router startup event triggered.
+2025-07-11 13:05:27,269 [INFO] Noopy: Vector Store router startup event triggered.
+2025-07-11 13:05:51,714 [INFO] chromadb.telemetry.product.posthog: Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+2025-07-11 13:05:55,323 [INFO] httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 401 Unauthorized"
+2025-07-11 13:05:55,324 [ERROR] Noopy: Unhandled error: Error code: 401 - {'error': {'message': 'Incorrect API key provided: sk-proj-******************************************************************************************unQ>. You can find your API key at https://platform.openai.com/account/api-keys.', 'type': 'invalid_request_error', 'param': None, 'code': 'invalid_api_key'}}
+Traceback (most recent call last):
+  File "C:\Users\jemad\AppData\Roaming\Python\Python313\site-packages\starlette\middleware\errors.py", line 165, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\jemad\AppData\Roaming\Python\Python313\site-packages\starlette\middleware\cors.py", line 93, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "C:\Users\jemad\AppData\Roaming\Python\Python313\site-packages\starlette\middleware\cors.py", line 144, in simple_response
+    await self.app(scope, receive, send)
+  File "C:\Users\jemad\AppData\Roaming\Python\Python313\site-packages\starlette\middleware\exceptions.py", line 62, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\jemad\AppData\Roaming\Python\Python313\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\jemad\AppData\Roaming\Python\Python313\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\jemad\AppData\Roaming\Python\Python313\site-packages\starlette\routing.py", line 714, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\jemad\AppData\Roaming\Python\Python313\site-packages\starlette\routing.py", line 734, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\jemad\AppData\Roaming\Python\Python313\site-packages\starlette\routing.py", line 288, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\jemad\AppData\Roaming\Python\Python313\site-packages\starlette\routing.py", line 76, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\jemad\AppData\Roaming\Python\Python313\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\jemad\AppData\Roaming\Python\Python313\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\jemad\AppData\Roaming\Python\Python313\site-packages\starlette\routing.py", line 73, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\jemad\AppData\Roaming\Python\Python313\site-packages\fastapi\routing.py", line 301, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\jemad\AppData\Roaming\Python\Python313\site-packages\fastapi\routing.py", line 212, in run_endpoint_function
+    return await dependant.call(**values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jemad\OneDrive\Desktop\Noopy-Bot\routes\vector_store.py", line 63, in create_vector_store
+    new_vector_store = vectore_store.create_vector_store(text=loaded_content)
+  File "C:\Users\jemad\OneDrive\Desktop\Noopy-Bot\utils\vector_store.py", line 55, in create_vector_store
+    vector_store.add_texts(texts=text)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "C:\Users\jemad\AppData\Roaming\Python\Python313\site-packages\langchain_chroma\vectorstores.py", line 527, in add_texts
+    embeddings = self._embedding_function.embed_documents(texts)
+  File "C:\Users\jemad\AppData\Roaming\Python\Python313\site-packages\langchain_openai\embeddings\base.py", line 590, in embed_documents
+    return self._get_len_safe_embeddings(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        texts, engine=engine, chunk_size=chunk_size, **kwargs
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\jemad\AppData\Roaming\Python\Python313\site-packages\langchain_openai\embeddings\base.py", line 478, in _get_len_safe_embeddings
+    response = self.client.create(
+        input=tokens[i : i + _chunk_size], **client_kwargs
+    )
+  File "C:\Users\jemad\AppData\Roaming\Python\Python313\site-packages\openai\resources\embeddings.py", line 129, in create
+    return self._post(
+           ~~~~~~~~~~^
+        "/embeddings",
+        ^^^^^^^^^^^^^^
+    ...<8 lines>...
+        cast_to=CreateEmbeddingResponse,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\jemad\AppData\Roaming\Python\Python313\site-packages\openai\_base_client.py", line 1249, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jemad\AppData\Roaming\Python\Python313\site-packages\openai\_base_client.py", line 1037, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.AuthenticationError: Error code: 401 - {'error': {'message': 'Incorrect API key provided: sk-proj-******************************************************************************************unQ>. You can find your API key at https://platform.openai.com/account/api-keys.', 'type': 'invalid_request_error', 'param': None, 'code': 'invalid_api_key'}}
+2025-07-11 13:07:26,467 [INFO] Noopy: Chat router startup event triggered.
+2025-07-11 13:07:26,479 [INFO] Noopy: Vector Store router startup event triggered.
+2025-07-11 13:07:28,766 [INFO] sqlalchemy.engine.Engine: select pg_catalog.version()
+2025-07-11 13:07:28,767 [INFO] sqlalchemy.engine.Engine: [raw sql] {}
+2025-07-11 13:07:29,269 [INFO] sqlalchemy.engine.Engine: select current_schema()
+2025-07-11 13:07:29,270 [INFO] sqlalchemy.engine.Engine: [raw sql] {}
+2025-07-11 13:07:29,771 [INFO] sqlalchemy.engine.Engine: show standard_conforming_strings
+2025-07-11 13:07:29,772 [INFO] sqlalchemy.engine.Engine: [raw sql] {}
+2025-07-11 13:07:30,275 [INFO] sqlalchemy.engine.Engine: BEGIN (implicit)
+2025-07-11 13:07:30,287 [INFO] sqlalchemy.engine.Engine: SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s, %(param_2)s, %(param_3)s, %(param_4)s, %(param_5)s]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s
+2025-07-11 13:07:30,288 [INFO] sqlalchemy.engine.Engine: [generated in 0.00079s] {'table_name': 'chatbot', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2025-07-11 13:07:30,790 [INFO] sqlalchemy.engine.Engine: COMMIT
+2025-07-11 13:07:31,041 [INFO] Noopy: Chat router startup event triggered.
+2025-07-11 13:07:31,052 [INFO] Noopy: Vector Store router startup event triggered.
+2025-07-11 13:07:58,492 [INFO] chromadb.telemetry.product.posthog: Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+2025-07-11 13:08:01,952 [INFO] httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-07-11 13:08:07,097 [INFO] httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-07-11 13:08:18,904 [INFO] httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-07-11 13:15:43,404 [INFO] sqlalchemy.engine.Engine: BEGIN (implicit)
+2025-07-11 13:15:43,411 [INFO] sqlalchemy.engine.Engine: SELECT chatbot.id AS chatbot_id, chatbot.web_name AS chatbot_web_name, chatbot.vector_store_path AS chatbot_vector_store_path, chatbot.agent_prompt AS chatbot_agent_prompt, chatbot.generate_prompt AS chatbot_generate_prompt, chatbot.created_at AS chatbot_created_at 
+FROM chatbot 
+WHERE chatbot.web_name = %(web_name_1)s 
+ LIMIT %(param_1)s
+2025-07-11 13:15:43,413 [INFO] sqlalchemy.engine.Engine: [generated in 0.00167s] {'web_name_1': 'noopy', 'param_1': 1}
+2025-07-11 13:15:43,925 [INFO] sqlalchemy.engine.Engine: ROLLBACK
+2025-07-11 13:15:44,630 [INFO] httpx: HTTP Request: GET https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=en&hl=en&dt=at&dt=bd&dt=ex&dt=ld&dt=md&dt=qca&dt=rw&dt=rm&dt=ss&dt=t&ie=UTF-8&oe=UTF-8&otf=1&ssel=0&tsel=0&tk=xxxx&q=Hello "HTTP/2 200 OK"
+2025-07-11 13:15:46,593 [INFO] httpx: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-11 13:16:06,871 [INFO] sqlalchemy.engine.Engine: BEGIN (implicit)
+2025-07-11 13:16:06,872 [INFO] sqlalchemy.engine.Engine: SELECT chatbot.id AS chatbot_id, chatbot.web_name AS chatbot_web_name, chatbot.vector_store_path AS chatbot_vector_store_path, chatbot.agent_prompt AS chatbot_agent_prompt, chatbot.generate_prompt AS chatbot_generate_prompt, chatbot.created_at AS chatbot_created_at 
+FROM chatbot 
+WHERE chatbot.web_name = %(web_name_1)s 
+ LIMIT %(param_1)s
+2025-07-11 13:16:06,873 [INFO] sqlalchemy.engine.Engine: [cached since 23.46s ago] {'web_name_1': 'noopy', 'param_1': 1}
+2025-07-11 13:16:07,374 [INFO] sqlalchemy.engine.Engine: ROLLBACK
+2025-07-11 13:16:07,777 [INFO] httpx: HTTP Request: GET https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=en&hl=en&dt=at&dt=bd&dt=ex&dt=ld&dt=md&dt=qca&dt=rw&dt=rm&dt=ss&dt=t&ie=UTF-8&oe=UTF-8&otf=1&ssel=0&tsel=0&tk=xxxx&q=what+is+noopy+ai "HTTP/2 200 OK"
+2025-07-11 13:16:09,584 [INFO] httpx: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-11 13:16:10,772 [INFO] httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-07-11 13:16:12,533 [INFO] httpx: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-11 13:16:14,122 [INFO] httpx: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-11 13:16:16,418 [INFO] httpx: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"

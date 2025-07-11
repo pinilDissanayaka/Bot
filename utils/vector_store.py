@@ -29,7 +29,32 @@ class VectorStore:
                 str: The full path to the vector store directory for the current website.
         """
         return os.path.join(self.BASE_VECTOR_STORE_DIR, self.web_name)
-            
+    
+    def create_vector_store(self, text: list):
+        """
+        Creates a vector store for a given website name.
+
+        This method generates a Chroma vector store using the provided documents and the embeddings stored in the vector store
+        for the given website name. If no vector store is found, a ValueError is raised.
+
+        Args:
+            documents (list): A list of documents to be added to the vector store.
+
+        Returns:
+            langchain.tools.retriever.RekeeperRetriever: A retriever which can be used to search the vector store.
+        """
+        store_path=self._get_store_path()
+
+        
+        vector_store = Chroma(
+            collection_name=f"{self.web_name}",
+            embedding_function=embeddings,
+            persist_directory=store_path,  
+        )
+        
+        vector_store.add_texts(texts=text)
+        
+                    
     def get_vector_store(self):
         """
         Gets a vector store for a given website name.

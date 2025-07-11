@@ -7,6 +7,3 @@ fast_llm:
   temperature: 0
 
 embedding_model: text-embedding-3-large
-
-
-

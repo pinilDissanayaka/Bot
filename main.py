@@ -4,6 +4,7 @@ import uvicorn
 from dotenv import load_dotenv, find_dotenv
 from database import Base, engine
 from routes.chat import chat_router
+from routes.vector_store import vector_store_router
 from fastapi.exception_handlers import RequestValidationError
 from fastapi.exceptions import HTTPException
 from fastapi.responses import JSONResponse
@@ -18,6 +19,7 @@ app = FastAPI()
 
 
 app.include_router(chat_router)
+app.include_router(vector_store_router)
 
 
 app.add_middleware(
