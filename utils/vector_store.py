@@ -2,6 +2,7 @@ import os
 import shutil
 from .config import embeddings
 from langchain_chroma import Chroma
+from langchain_experimental.text_splitter import SemanticChunker
 
 
 class VectorStore:
@@ -30,7 +31,7 @@ class VectorStore:
         """
         return os.path.join(self.BASE_VECTOR_STORE_DIR, self.web_name)
     
-    def create_vector_store(self, text: list):
+    def create_vector_store(self, text: list|str):
         """
         Creates a vector store for a given website name.
 
@@ -43,6 +44,12 @@ class VectorStore:
         Returns:
             langchain.tools.retriever.RekeeperRetriever: A retriever which can be used to search the vector store.
         """
+        if isinstance(text, str):
+            text = [text]
+            
+        docs = SemanticChunker(embeddings=embeddings).create_documents(texts=text)
+        
+
         store_path=self._get_store_path()
 
         
@@ -52,7 +59,7 @@ class VectorStore:
             persist_directory=store_path,  
         )
         
-        vector_store.add_texts(texts=text)
+        vector_store.add_documents(docs)
         
                     
     def get_vector_store(self):

@@ -145,3 +145,155 @@ WHERE chatbot.web_name = %(web_name_1)s
 2025-07-11 13:16:12,533 [INFO] httpx: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
 2025-07-11 13:16:14,122 [INFO] httpx: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
 2025-07-11 13:16:16,418 [INFO] httpx: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-11 13:32:56,364 [INFO] Noopy: Chat router startup event triggered.
+2025-07-11 13:32:56,380 [INFO] Noopy: Vector Store router startup event triggered.
+2025-07-11 13:32:58,750 [INFO] sqlalchemy.engine.Engine: select pg_catalog.version()
+2025-07-11 13:32:58,752 [INFO] sqlalchemy.engine.Engine: [raw sql] {}
+2025-07-11 13:32:59,251 [INFO] sqlalchemy.engine.Engine: select current_schema()
+2025-07-11 13:32:59,253 [INFO] sqlalchemy.engine.Engine: [raw sql] {}
+2025-07-11 13:32:59,751 [INFO] sqlalchemy.engine.Engine: show standard_conforming_strings
+2025-07-11 13:32:59,753 [INFO] sqlalchemy.engine.Engine: [raw sql] {}
+2025-07-11 13:33:00,253 [INFO] sqlalchemy.engine.Engine: BEGIN (implicit)
+2025-07-11 13:33:00,264 [INFO] sqlalchemy.engine.Engine: SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s, %(param_2)s, %(param_3)s, %(param_4)s, %(param_5)s]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s
+2025-07-11 13:33:00,264 [INFO] sqlalchemy.engine.Engine: [generated in 0.00069s] {'table_name': 'chatbot', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2025-07-11 13:33:00,762 [INFO] sqlalchemy.engine.Engine: COMMIT
+2025-07-11 13:33:01,012 [INFO] Noopy: Chat router startup event triggered.
+2025-07-11 13:33:01,026 [INFO] Noopy: Vector Store router startup event triggered.
+2025-07-11 13:33:15,336 [INFO] sqlalchemy.engine.Engine: BEGIN (implicit)
+2025-07-11 13:33:15,338 [INFO] sqlalchemy.engine.Engine: SELECT chatbot.id AS chatbot_id, chatbot.web_name AS chatbot_web_name, chatbot.vector_store_path AS chatbot_vector_store_path, chatbot.agent_prompt AS chatbot_agent_prompt, chatbot.generate_prompt AS chatbot_generate_prompt, chatbot.created_at AS chatbot_created_at 
+FROM chatbot 
+WHERE chatbot.web_name = %(web_name_1)s 
+ LIMIT %(param_1)s
+2025-07-11 13:33:15,339 [INFO] sqlalchemy.engine.Engine: [generated in 0.00055s] {'web_name_1': 'noopy', 'param_1': 1}
+2025-07-11 13:33:15,836 [INFO] sqlalchemy.engine.Engine: ROLLBACK
+2025-07-11 13:33:16,140 [INFO] chromadb.telemetry.product.posthog: Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+2025-07-11 13:33:18,042 [INFO] httpx: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-11 13:33:31,378 [INFO] sqlalchemy.engine.Engine: BEGIN (implicit)
+2025-07-11 13:33:31,379 [INFO] sqlalchemy.engine.Engine: SELECT chatbot.id AS chatbot_id, chatbot.web_name AS chatbot_web_name, chatbot.vector_store_path AS chatbot_vector_store_path, chatbot.agent_prompt AS chatbot_agent_prompt, chatbot.generate_prompt AS chatbot_generate_prompt, chatbot.created_at AS chatbot_created_at 
+FROM chatbot 
+WHERE chatbot.web_name = %(web_name_1)s 
+ LIMIT %(param_1)s
+2025-07-11 13:33:31,380 [INFO] sqlalchemy.engine.Engine: [cached since 16.04s ago] {'web_name_1': 'noopy', 'param_1': 1}
+2025-07-11 13:33:31,881 [INFO] sqlalchemy.engine.Engine: ROLLBACK
+2025-07-11 13:33:32,307 [INFO] httpx: HTTP Request: GET https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=en&hl=en&dt=at&dt=bd&dt=ex&dt=ld&dt=md&dt=qca&dt=rw&dt=rm&dt=ss&dt=t&ie=UTF-8&oe=UTF-8&otf=1&ssel=0&tsel=0&tk=xxxx&q=what+are+the+pricing+plangs "HTTP/2 200 OK"
+2025-07-11 13:33:33,239 [INFO] httpx: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-11 13:33:34,031 [INFO] httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-07-11 13:33:36,121 [INFO] httpx: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-11 13:33:37,012 [INFO] httpx: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-11 13:33:38,886 [INFO] httpx: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-11 13:33:40,702 [INFO] httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-07-11 13:33:41,871 [INFO] httpx: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-11 13:33:42,859 [INFO] httpx: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-11 13:33:43,682 [INFO] httpx: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-11 13:33:44,590 [INFO] httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-07-11 13:33:45,544 [INFO] httpx: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-11 13:33:46,841 [INFO] httpx: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-11 13:33:47,824 [INFO] httpx: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-11 13:33:48,946 [INFO] httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-07-11 13:33:50,010 [INFO] httpx: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-11 13:33:50,713 [INFO] httpx: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-11 13:33:52,371 [INFO] httpx: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-11 13:33:53,630 [INFO] httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-07-11 13:33:55,716 [INFO] httpx: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-11 13:33:56,577 [INFO] httpx: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-11 13:33:57,968 [INFO] httpx: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-11 13:33:59,047 [INFO] httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-07-11 13:34:00,081 [INFO] httpx: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-11 13:34:00,749 [INFO] httpx: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-11 13:34:01,546 [INFO] httpx: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-11 13:34:02,744 [INFO] httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-07-11 13:34:04,114 [INFO] httpx: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-11 13:34:05,595 [INFO] httpx: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-11 13:34:07,199 [INFO] httpx: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-11 13:34:07,788 [INFO] httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-07-11 13:34:08,892 [INFO] httpx: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-11 13:34:09,592 [INFO] httpx: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-11 13:34:11,125 [INFO] httpx: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-11 13:34:12,133 [INFO] httpx: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-11 13:34:42,791 [INFO] sqlalchemy.engine.Engine: BEGIN (implicit)
+2025-07-11 13:34:42,792 [INFO] sqlalchemy.engine.Engine: SELECT chatbot.id AS chatbot_id, chatbot.web_name AS chatbot_web_name, chatbot.vector_store_path AS chatbot_vector_store_path, chatbot.agent_prompt AS chatbot_agent_prompt, chatbot.generate_prompt AS chatbot_generate_prompt, chatbot.created_at AS chatbot_created_at 
+FROM chatbot 
+WHERE chatbot.web_name = %(web_name_1)s 
+ LIMIT %(param_1)s
+2025-07-11 13:34:42,793 [INFO] sqlalchemy.engine.Engine: [cached since 87.45s ago] {'web_name_1': 'noopy', 'param_1': 1}
+2025-07-11 13:34:43,289 [INFO] sqlalchemy.engine.Engine: ROLLBACK
+2025-07-11 13:34:43,695 [INFO] httpx: HTTP Request: GET https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=en&hl=en&dt=at&dt=bd&dt=ex&dt=ld&dt=md&dt=qca&dt=rw&dt=rm&dt=ss&dt=t&ie=UTF-8&oe=UTF-8&otf=1&ssel=0&tsel=0&tk=xxxx&q=who+are+the+Target+Users "HTTP/2 200 OK"
+2025-07-11 13:34:45,186 [INFO] httpx: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-11 13:34:46,049 [INFO] httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-07-11 13:34:47,581 [INFO] httpx: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-11 13:34:48,351 [INFO] httpx: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-11 13:34:51,664 [INFO] httpx: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-11 13:35:28,200 [INFO] sqlalchemy.engine.Engine: BEGIN (implicit)
+2025-07-11 13:35:28,201 [INFO] sqlalchemy.engine.Engine: SELECT chatbot.id AS chatbot_id, chatbot.web_name AS chatbot_web_name, chatbot.vector_store_path AS chatbot_vector_store_path, chatbot.agent_prompt AS chatbot_agent_prompt, chatbot.generate_prompt AS chatbot_generate_prompt, chatbot.created_at AS chatbot_created_at 
+FROM chatbot 
+WHERE chatbot.web_name = %(web_name_1)s 
+ LIMIT %(param_1)s
+2025-07-11 13:35:28,202 [INFO] sqlalchemy.engine.Engine: [cached since 132.9s ago] {'web_name_1': 'noopy', 'param_1': 1}
+2025-07-11 13:35:28,700 [INFO] sqlalchemy.engine.Engine: ROLLBACK
+2025-07-11 13:35:29,089 [INFO] httpx: HTTP Request: GET https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=en&hl=en&dt=at&dt=bd&dt=ex&dt=ld&dt=md&dt=qca&dt=rw&dt=rm&dt=ss&dt=t&ie=UTF-8&oe=UTF-8&otf=1&ssel=0&tsel=0&tk=xxxx&q=what+is+the+pricing+plans "HTTP/2 200 OK"
+2025-07-11 13:35:31,006 [INFO] httpx: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-11 13:35:31,475 [INFO] httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-07-11 13:35:32,509 [INFO] httpx: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-11 13:35:33,196 [INFO] httpx: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-11 13:35:34,831 [INFO] httpx: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-11 13:35:35,754 [INFO] httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-07-11 13:35:37,466 [INFO] httpx: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-11 13:35:38,296 [INFO] httpx: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-11 13:35:39,473 [INFO] httpx: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-11 13:35:39,905 [INFO] httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-07-11 13:35:40,941 [INFO] httpx: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-11 13:35:41,668 [INFO] httpx: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-11 13:35:42,875 [INFO] httpx: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-11 13:35:43,285 [INFO] httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-07-11 13:35:44,269 [INFO] httpx: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-11 13:35:45,563 [INFO] httpx: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-11 13:35:46,767 [INFO] httpx: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-11 13:44:51,255 [INFO] Noopy: Chat router startup event triggered.
+2025-07-11 13:44:51,278 [INFO] Noopy: Vector Store router startup event triggered.
+2025-07-11 13:44:54,168 [INFO] sqlalchemy.engine.Engine: select pg_catalog.version()
+2025-07-11 13:44:54,169 [INFO] sqlalchemy.engine.Engine: [raw sql] {}
+2025-07-11 13:44:54,669 [INFO] sqlalchemy.engine.Engine: select current_schema()
+2025-07-11 13:44:54,670 [INFO] sqlalchemy.engine.Engine: [raw sql] {}
+2025-07-11 13:44:55,166 [INFO] sqlalchemy.engine.Engine: show standard_conforming_strings
+2025-07-11 13:44:55,167 [INFO] sqlalchemy.engine.Engine: [raw sql] {}
+2025-07-11 13:44:55,660 [INFO] sqlalchemy.engine.Engine: BEGIN (implicit)
+2025-07-11 13:44:55,673 [INFO] sqlalchemy.engine.Engine: SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s, %(param_2)s, %(param_3)s, %(param_4)s, %(param_5)s]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s
+2025-07-11 13:44:55,674 [INFO] sqlalchemy.engine.Engine: [generated in 0.00073s] {'table_name': 'chatbot', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2025-07-11 13:44:56,190 [INFO] sqlalchemy.engine.Engine: COMMIT
+2025-07-11 13:44:56,439 [INFO] Noopy: Chat router startup event triggered.
+2025-07-11 13:44:56,455 [INFO] Noopy: Vector Store router startup event triggered.
+2025-07-11 13:49:18,677 [INFO] Noopy: Chat router startup event triggered.
+2025-07-11 13:49:18,703 [INFO] Noopy: Vector Store router startup event triggered.
+2025-07-11 13:49:21,062 [INFO] sqlalchemy.engine.Engine: select pg_catalog.version()
+2025-07-11 13:49:21,063 [INFO] sqlalchemy.engine.Engine: [raw sql] {}
+2025-07-11 13:49:21,559 [INFO] sqlalchemy.engine.Engine: select current_schema()
+2025-07-11 13:49:21,559 [INFO] sqlalchemy.engine.Engine: [raw sql] {}
+2025-07-11 13:49:22,175 [INFO] sqlalchemy.engine.Engine: show standard_conforming_strings
+2025-07-11 13:49:22,176 [INFO] sqlalchemy.engine.Engine: [raw sql] {}
+2025-07-11 13:49:22,671 [INFO] sqlalchemy.engine.Engine: BEGIN (implicit)
+2025-07-11 13:49:22,681 [INFO] sqlalchemy.engine.Engine: SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s, %(param_2)s, %(param_3)s, %(param_4)s, %(param_5)s]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s
+2025-07-11 13:49:22,682 [INFO] sqlalchemy.engine.Engine: [generated in 0.00051s] {'table_name': 'chatbot', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2025-07-11 13:49:23,178 [INFO] sqlalchemy.engine.Engine: COMMIT
+2025-07-11 13:49:23,426 [INFO] Noopy: Chat router startup event triggered.
+2025-07-11 13:49:23,438 [INFO] Noopy: Vector Store router startup event triggered.
+2025-07-11 13:49:46,527 [INFO] httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-07-11 13:49:47,104 [INFO] chromadb.telemetry.product.posthog: Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+2025-07-11 13:49:48,370 [INFO] httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-07-11 13:50:14,884 [INFO] sqlalchemy.engine.Engine: BEGIN (implicit)
+2025-07-11 13:50:14,888 [INFO] sqlalchemy.engine.Engine: SELECT chatbot.id AS chatbot_id, chatbot.web_name AS chatbot_web_name, chatbot.vector_store_path AS chatbot_vector_store_path, chatbot.agent_prompt AS chatbot_agent_prompt, chatbot.generate_prompt AS chatbot_generate_prompt, chatbot.created_at AS chatbot_created_at 
+FROM chatbot 
+WHERE chatbot.web_name = %(web_name_1)s 
+ LIMIT %(param_1)s
+2025-07-11 13:50:14,888 [INFO] sqlalchemy.engine.Engine: [generated in 0.00069s] {'web_name_1': 'noopy', 'param_1': 1}
+2025-07-11 13:50:15,439 [INFO] sqlalchemy.engine.Engine: ROLLBACK
+2025-07-11 13:50:15,927 [INFO] httpx: HTTP Request: GET https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=en&hl=en&dt=at&dt=bd&dt=ex&dt=ld&dt=md&dt=qca&dt=rw&dt=rm&dt=ss&dt=t&ie=UTF-8&oe=UTF-8&otf=1&ssel=0&tsel=0&tk=xxxx&q=what+is+the+pricing+of+noopy "HTTP/2 200 OK"
+2025-07-11 13:50:17,009 [INFO] httpx: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-11 13:50:17,689 [INFO] httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-07-11 13:50:18,833 [INFO] httpx: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-11 13:50:24,021 [INFO] httpx: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
