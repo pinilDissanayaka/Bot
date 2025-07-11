@@ -14,14 +14,10 @@ load_dotenv(find_dotenv())
 
 
 @tool
-def contact(name: str, senders_email: str, phone_number: str, message_body: str, config:RunnableConfig) -> str:
-    """
-    A tool that saves the contact details to the database.
-
+def support_ticket(name: str, senders_email: str, phone_number: str, message_body: str, config:RunnableConfig) -> str:
+    """    A tool that saves the support ticket details to the database.
     This tool takes four parameters: name, senders_email, phone_number, and message_body.
-    It uses the environment variables HOST, EMAIL_API_KEY, SENDER, and RECEIVER to send an email.
-    It also uses the DATABASE_URL environment variable to connect to the database and insert the contact details.
-
+    It uses the environment variables DATABASE_URL to connect to the database and insert the support ticket details.
     Returns a string with a success message or an error message if there was an exception.
     """
     try:
@@ -35,7 +31,7 @@ def contact(name: str, senders_email: str, phone_number: str, message_body: str,
         
         cur= conn.cursor()
         
-        query = "INSERT INTO lead (thread_id, name, email, phone, message) VALUES (%s, %s, %s, %s, %s)"
+        query = "INSERT INTO support_ticket (thread_id, name, email, phone, message) VALUES (%s, %s, %s, %s, %s)"
         
         cur.execute(query, (thread_id, name, senders_email, phone_number, message_body))
         
