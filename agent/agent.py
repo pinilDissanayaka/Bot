@@ -8,6 +8,7 @@ from langgraph.graph import END, StateGraph, START
 from langgraph.prebuilt import ToolNode
 from agent.tools.retriever_tool import get_retriever_tool
 from agent.tools.contact import contact
+from agent.tools.support_ticket import issue_support_ticket
 from utils import AgentState, llm, fast_llm, translate_text, detect
 from langgraph.checkpoint.memory import MemorySaver
 from langchain_core.prompts import ChatPromptTemplate
@@ -53,7 +54,7 @@ def build_graph(agent_system_prompt:str, generate_system_prompt:str, web_name:st
     """
     retriever_tool = get_retriever_tool(web_name=web_name)
     
-    tools = [retriever_tool, contact]
+    tools = [retriever_tool, contact, issue_support_ticket]
     
     agent_prompt_template = [
         ("system",

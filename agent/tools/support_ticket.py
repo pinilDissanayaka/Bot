@@ -14,7 +14,7 @@ load_dotenv(find_dotenv())
 
 
 @tool
-def support_ticket(name: str, senders_email: str, phone_number: str, message_body: str, config:RunnableConfig) -> str:
+def issue_support_ticket(name: str, senders_email: str, phone_number: str, message_body: str, config:RunnableConfig) -> str:
     """    A tool that saves the support ticket details to the database.
     This tool takes four parameters: name, senders_email, phone_number, and message_body.
     It uses the environment variables DATABASE_URL to connect to the database and insert the support ticket details.
